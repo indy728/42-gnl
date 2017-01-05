@@ -6,7 +6,7 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 18:21:17 by kmurray           #+#    #+#             */
-/*   Updated: 2016/12/29 11:59:21 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/04 16:23:19 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,34 @@ int	get_next_line(const int fd, char **line)
 	int 	i = 0;
 	int  j = 0;
 	static char	*dup;
+	char *ptr = *line;
 
-//	printf("!1%s!\n", dup);
-	bzero(buf, BUFF_SIZE + 1);
-	bzero(line[0], strlen(line[0]));
+	ft_bzero(buf, BUFF_SIZE + 1);
 	if (dup != NULL)
 	{
-		while (dup[j] && dup[j] != '\n')
+		while (dup[j])
 		{
-			line[0][j] = dup[j];
+			if (dup[j] == '\n')
+			{
+				dup = dup + j + 1;
+				return (1);
+			}
+			ft_bzero(ptr + j, ft_strlen(dup));
+			ptr[j] = dup[j];
 			j++;
 		}
 	}
-	while ((bytes_read = read(fd, buf + i, BUFF_SIZE - i)))
+	while ((bytes_read = read(fd, buf, BUFF_SIZE)))
 	{
 		while (buf[i])
 		{
 			if (buf[i] == '\n')
 			{
-				dup = strdup(buf + i + 1);
-//				printf("!2%s!\n", dup);
+				dup = ft_strdup(buf + i + 1);
 				return (1);
 			}
-			line[0][j] = buf[i];
+			ft_bzero(ptr + j, BUFF_SIZE + 1);
+			ptr[j] = buf[i];
 			j++;
 			i++;
 		}
