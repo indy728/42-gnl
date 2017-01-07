@@ -6,27 +6,18 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 18:21:17 by kmurray           #+#    #+#             */
-/*   Updated: 2017/01/04 16:23:19 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/06 20:44:25 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*char	*set_heap_buf(void)
-{
-	char *buf;
-
-	buf = (char *)malloc(BUFF_SIZE + 1);
-	bzero(buf, BUFF_SIZE + 1);
-	return (buf);
-}*/
-
-int	get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	int		bytes_read;
 	char	buf[BUFF_SIZE + 1];
 	int 	i = 0;
-	int  j = 0;
+	int		j = 0;
 	static char	*dup;
 	char *ptr = *line;
 
