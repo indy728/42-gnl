@@ -6,11 +6,12 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 18:14:48 by kmurray           #+#    #+#             */
-/*   Updated: 2017/01/04 16:15:00 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/09 13:01:07 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	get_next_line(const int fd, char **line);
 

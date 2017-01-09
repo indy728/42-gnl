@@ -6,7 +6,7 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 13:08:00 by kmurray           #+#    #+#             */
-/*   Updated: 2017/01/08 14:12:44 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/09 13:43:22 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,16 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>///////////////////////////////////////////////////////////////////////
-# include <string.h>////////////////////////////////////////////////////////////////////
 
 # define BUFF_SIZE 5
 
-typedef struct		s_list
+typedef struct			s_fd_list
 {
-	int				fd;
-	char			*str;
-	struct s_list	*next;
-}					t_list;
+	int					fd;
+	char				*str;
+	struct s_fd_list	*next;
+}						t_fd_list;
 
-int	get_next_line(const int fd, char **line);
+int						get_next_line(const int fd, char **line);
 
 #endif
