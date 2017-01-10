@@ -6,7 +6,7 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 18:14:48 by kmurray           #+#    #+#             */
-/*   Updated: 2017/01/09 13:01:07 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/09 16:35:42 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ int main(int ac, char **av)
 	if (ac > 1)
 	{
 		int	gnl;
-		char *line;
+		char *line = NULL;
 		int fd;
 		static int p = 0;
-
-		line = (char *)malloc(20000);
 
 		fd = open(av[1], O_RDONLY);
 		while ((gnl = get_next_line(fd, &line)) > 0)

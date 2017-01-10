@@ -6,7 +6,7 @@
 /*   By: kmurray <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 18:21:17 by kmurray           #+#    #+#             */
-/*   Updated: 2017/01/09 13:40:03 by kmurray          ###   ########.fr       */
+/*   Updated: 2017/01/09 16:45:43 by kmurray          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		fd_lst_del(int fd, t_fd_list **begin_list)
 	free(scout);
 }
 
-int			check_fd_list(int fd, char *ptr, t_fd_list **begin_list)
+int			check_fd_list(int fd, char **line, t_fd_list **begin_list)
 {
 	t_fd_list	*scout;
 	int			i;
@@ -65,23 +65,20 @@ int			check_fd_list(int fd, char *ptr, t_fd_list **begin_list)
 			scout->str = ft_strdup(scout->str + i + 1);
 			return (1);
 		}
-		ft_bzero(ptr + i, 2);
-		ptr[i] = scout->str[i];
 		i++;
 	}
+	*line = strndup(scout->str, i);
 	fd_lst_del(fd, begin_list);
 	return (0);
 }
 
-int			read_file(int fd, char *ptr, t_fd_list **begin_list)
+int			read_file(int fd, char **line, t_fd_list **begin_list)
 {
 	int		bytes_read;
 	char	buf[BUFF_SIZE + 1];
 	int		i;
-	int		j;
 
 	ft_bzero(buf, BUFF_SIZE + 1);
-	j = ft_strlen(ptr);
 	while ((bytes_read = read(fd, buf, BUFF_SIZE)))
 	{
 		i = 0;
@@ -95,9 +92,9 @@ int			read_file(int fd, char *ptr, t_fd_list **begin_list)
 					return (-1);
 				return (1);
 			}
-			ptr[j++] = buf[i++];
-			ptr[j] = '\0';
+			i++;
 		}
+		*line = strndup(buf, i);
 	}
 	return (0);
 }
@@ -105,18 +102,15 @@ int			read_file(int fd, char *ptr, t_fd_list **begin_list)
 int			get_next_line(const int fd, char **line)
 {
 	static t_fd_list	*begin_list = NULL;
-	char				*ptr;
 
-	ptr = *line;
-	*ptr = '\0';
 	if (begin_list != NULL)
 	{
-		if (check_fd_list(fd, ptr, &begin_list))
+		if (check_fd_list(fd, line, &begin_list))
 			return (1);
 	}
-	if (read_file(fd, ptr, &begin_list) > 0)
+	if (read_file(fd, line, &begin_list) > 0)
 		return (1);
-	else if (read_file(fd, ptr, &begin_list) < 0)
+	else if (read_file(fd, line, &begin_list) < 0)
 		return (-1);
 	return (0);
 }
